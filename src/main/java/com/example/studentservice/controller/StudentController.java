@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.studentservice.model.Student;
 import com.example.studentservice.service.StudentService;
 
+import jakarta.validation.Valid;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,13 +41,13 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<Student> createStudent(@RequestBody Student student) {
+    public ResponseEntity<Student> createStudent(@Valid @RequestBody Student student) {
         Student created = studentService.createStudent(student);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
     @PutMapping("/{id}")
-    public Student updateStudent(@PathVariable Long id, @RequestBody Student student) {
+    public Student updateStudent(@PathVariable Long id, @Valid @RequestBody Student student) {
         return studentService.updateStudent(id, student);
     }
 
